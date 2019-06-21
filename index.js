@@ -9,10 +9,26 @@ app.set('view engine', 'ejs');
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true}));
 
-app.get('/', function(req, res) {
-    return res.send('Hello World');
+app.get('/', beforeRequest, function(req, res) {
+    return res.render('index');
 });
 
+app.get('/login', function(req, res) {
+    return res.render('login');
+});
+
+app.get('/register', function(req, res) {
+    return res.render('register');
+});
+
+
+function beforeRequest(req, res, next) {
+    if (!req.cookies.access_token) {
+        return res.redirect('/login');
+    } else {
+        next()
+    }
+}
 
 app.listen(4080, function(){
     console.log('Server is Listening on port 4080');
