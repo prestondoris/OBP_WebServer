@@ -12,7 +12,8 @@ app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', beforeRequest, function(req, res) {
-    let user = req.cookies.user
+    let user = {firstName: 'Preston', lastName: 'Doris'}
+    //console.log('user from cookie ', user)
     return res.render('index', {user: user});
 });
 
@@ -43,11 +44,10 @@ app.post('/login', function(req, res){
                     firstName: JSON.parse(body).firstName,
                     lastName: JSON.parse(body).lastName
                 }
-                console.log(JSON.parse(body))
                 let access_token = JSON.parse(body).access_token;
                 let expires_in = new Date(Date.now() + JSON.parse(body).expires_in);
                 res.cookie('access_token', access_token, { httpOnly: true, expires: expires_in });
-                res.cookie('user', user, {httpOnly: true, expires: expires_in});
+                //res.cookie('user', user, {httpOnly: true, expires: expires_in});
                 return res.redirect('/');
             } else {
                 return res.redirect('/login');
@@ -88,20 +88,31 @@ app.post('/register', function(req,res){
     request.post(options, function (err, response, body) {
         if (err) {
             console.log(err);
+            //Put flash message to user about unknown error occurred.
+            return res.redirect('/register');
         } else {
             if(response.statusCode === 200) {
-                console.log(response.statusCode);
-                console.log(response.statusMessage);
                 let user = {
                     firstName: JSON.parse(body).firstName,
                     lastName: JSON.parse(body).lastName
                 }
-                console.log(JSON.parse(body))
                 let access_token = JSON.parse(body).access_token;
                 let expires_in = new Date(Date.now() + JSON.parse(body).expires_in);
                 res.cookie('access_token', access_token, { httpOnly: true, expires: expires_in });
                 return res.redirect('/');
             } else {
+                let resBody = JSON.parse(body);
+                if(response.statusCode === 401 && resBody.error === 'This email already exists in the DB') {
+                    //Put flash message to user about email already in DB
+                    console.log('email exists')
+                    console.log(resBody.error)
+                } else if(response.statusCode === 401 && resBody.error === 'Access Denied - client not authorized'){
+                    //Put flash message to user about improper client authorization
+                }else if(response.statusCode === 500) {
+                    //Put flash message to user about Internal server error and email not added to DB
+                } else if(response.statusCode === 400) {
+                    //Put flash message to user about the request was not valid
+                }
                 return res.redirect('/register');
             }
 
