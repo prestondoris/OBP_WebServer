@@ -3,7 +3,7 @@ const cookieParser      = require('cookie-parser');
 const bodyParser        = require('body-parser');
 const request           = require('request');
 
-
+const authURL = 'https://murmuring-wildwood-77787.herokuapp.com'
 const app = express()
 app.set('view engine', 'ejs');
 app.use(cookieParser());
@@ -25,7 +25,7 @@ app.post('/login', function(req, res){
     let email = req.body.email;
     let password = req.body.password;
     let options = {
-        url: 'http://localhost:8080/authenticate',
+        url: authURL + '/authenticate',
         form: {
             grant_type: 'password',
             email: email,
@@ -73,7 +73,7 @@ app.post('/register', function(req,res){
     let fName = req.body.fName;
     let lName = req.body.lName;
     let options = {
-        url: 'http://localhost:8080/register',
+        url: authURL + '/register',
         form: {
             grant_type: 'password',
             email: email,
