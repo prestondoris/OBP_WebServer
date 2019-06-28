@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+        <link rel="stylesheet" href='./css/styles.css'>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+        <title>OBP</title>
+    </head>
+    <body data-gr-c-s-loaded="true">
+        <div id="nav" class="ui fixed menu">
+            <div class="ui container">
+                <p href="#" class="header item">
+                    Our Budget Planner
+                </p>
+                <a href="#" class="item">Home</a>
+                <div class="ui simple dropdown item">
+                    Dropdown <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="#">Senarios</a>
+                        <a class="item" href="#">Income</a>
+                        <a class="item" href="#">Budgets</a>
+                        <a class="item" href="#">Stock</a>
+                    </div>
+                </div>
+                <div class="right menu">
+                    <div class="item"> <%= user.firstName %> <%= user.lastName %> </div>
+                    <div class="ui right dropdown item">
+                        <i class="cog icon"></i>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item"><i class="edit icon"></i> Edit Profile</a>
+                            <a href="/logout" class="item"><i class="sign-out icon"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main id="main" class="ui main container">
+            <div class="ui skyscraper test ad" data-text="Skyscraper"></div>
+            <div class="ui skyscraper test ad" data-text="Skyscraper"></div>
+        
